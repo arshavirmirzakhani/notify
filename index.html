@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notify</title>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+    <body>
+        
+        <header>
+            <h1 style="text-align: center;"><b>Notify</b></h1>
+        </header>
+
+
+        <div id="options">
+            <button type="button" onclick="CopyContent()" class="button">export</button>
+            <button type="button" onclick="ImportContent()" class="button">import</button>
+        </div>
+        <div id="editor"></div>
+
+        <footer>
+            <h3>developed by <a href="https://github.com/arshavirmirzakhani/">arshavir mirzakhani</a></h3>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+
+        <script>
+
+            const editor = new EditorJS({
+                holder: 'editor',
+
+                tools: {
+
+                    header: {
+                    class: Header,
+                    inlineToolbar: ['marker', 'link'],
+                    config: {
+                        placeholder: 'Header'
+                    },
+                    },
+
+                    image: SimpleImage,
+
+                    list: {
+                    class: List,
+                    inlineToolbar: true,
+                    },
+
+                    checklist: {
+                    class: Checklist,
+                    inlineToolbar: true,
+                    },
+
+                    quote: {
+                    class: Quote,
+                    inlineToolbar: true,
+                    config: {
+                        quotePlaceholder: 'Enter a quote',
+                        captionPlaceholder: 'Quote\'s author',
+                    },
+                    },
+
+                    warning: Warning,
+
+                    marker: {
+                    class:  Marker,
+                    },
+
+                    code: {
+                    class:  CodeTool,
+                    },
+
+                    delimiter: Delimiter,
+
+                    inlineCode: {
+                    class: InlineCode,
+                    },
+
+                    linkTool: LinkTool,
+
+                    embed: Embed,
+
+                    table: {
+                    class: Table,
+                    inlineToolbar: true,
+                    },
+
+                },
+            });
+
+            function CopyContent() {
+                editor.save().then((outputData) => {
+                    navigator.clipboard.writeText(JSON.stringify(outputData))
+                });
+              
+                alert("content copied to clipboard");
+            }
+            function ImportContent() {
+                var data = prompt("import :");
+                data = JSON.parse(data);
+                editor.render(data);
+            }
+
+        </script>
+    </body>
+</html>
