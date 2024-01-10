@@ -14,8 +14,9 @@
 
 
         <div id="options">
-            <button type="button" onclick="CopyContent()" class="button">export</button>
+            <button type="button" onclick="CopyContent()" class="button">copy</button>
             <button type="button" onclick="ImportContent()" class="button">import</button>
+            <button type="button" onclick="ExportContent()" class="button">export</button>
         </div>
         <div id="editor"></div>
 
@@ -36,6 +37,8 @@
         <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
         <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
         <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/editorjs-html@3.4.0/build/edjsHTML.browser.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 
@@ -114,6 +117,17 @@
                 var data = prompt("import :");
                 data = JSON.parse(data);
                 editor.render(data);
+            }
+
+            function ExportContent() {
+
+                const Parser = edjsHTML();
+                
+                editor.save().then((outputData) => {
+                    navigator.clipboard.writeText(Parser.parse(outputData));
+                });
+
+                alert("content copied to clipboard");
             }
 
         </script>
